@@ -1,0 +1,61 @@
+STEP 1: Removing any previously installed docker versions
+sudo apt remove docker docker-engine docker.io
+
+STEP 2: Update package lists to ensure latest software availability in repositories
+sudo apt update
+
+STEP 3: Installing docker
+sudo apt install docker.io
+
+STEP 4: Start Docker service on Linux using administrative privileges.
+sudo systemctl start docker
+
+STEP 5: Enabling Docker service to start on system boot.
+sudo systemctl enable docker
+
+STEP 6: Checking if docker is successfully installed.
+sudo docker run hello-world
+
+If the 'hello-world' image is pulled, docker is successfully installed and working.
+
+
+
+FLAGS:
+-a: all
+-t: tag of image
+-d: detach flag
+-v: create volumes
+--rm: remove container after stopping
+-p: port mapping
+
+
+
+
+CREATING AN IMAGE:
+1) Create a dockefile: Blueprint for creating the image (required)
+2) Create a dockerignore: list of files to not be used in creating the image (optional, eg. node_modules)
+docker build -t <image_name> <workdir> -- creates an image 
+
+
+CREATING A CONTAINER:
+docker run --name <container_name> <image_name> -- creates a container and uses the specified image to launch it
+docker run --name <container_name> -p xxxx:xxxx -d <image_name> creates a container with port mapping
+
+
+STOPPING A CONTAINER:
+docker stop <container_name>
+
+
+DELETING A CONTAINER:
+docker rm <container_name>
+
+
+DELETING AN IMAGE:
+docker rmi <image_name>:<tag>
+
+
+TO REMOVE: all stopped containers, all networks not used by at least one container, all images without at least one container associated to them, all build cache --
+docker system prune -a
+
+VOLUMES: To detect and apply changes in the system folder to the folder in the container
+docker run --name <container_name> -p xxxx:xxxx -v <path_of_dir_on_system>:<workdir> --rm <image_name>
